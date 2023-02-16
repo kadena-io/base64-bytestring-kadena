@@ -1,0 +1,77 @@
+cabal-version:      3.8
+name:               base64-bytestring-kadena
+version:            0.0.0.1
+synopsis:           Fast base64 encoding and decoding for ByteStrings
+description:
+  This package is a fork of `base64-bytestring`, maintaining the old error formats from pre-
+  `base64-bytestring-1.0.0.0`.
+
+homepage:           https://github.com/kadena-io/base64-bytestring-kadena
+bug-reports:        https://github.com/kadena-io/base64-bytestring-kadena/issues
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Bryan O'Sullivan <bos@serpentine.com>
+maintainer:         Emily Pillmore <emilypi@cohomolo.gy>
+
+copyright:          2010-2020 Bryan O'Sullivan et al.
+category:           Data
+build-type:         Simple
+tested-with:
+  GHC ==8.10.7
+   || ==9.0.2
+   || ==9.2.6
+   || ==9.4.4
+
+extra-source-files:
+  README.md
+  CHANGELOG.md
+
+library
+  exposed-modules:
+    Data.ByteString.Base64
+    Data.ByteString.Base64.Lazy
+    Data.ByteString.Base64.URL
+    Data.ByteString.Base64.URL.Lazy
+
+  other-modules:    Data.ByteString.Base64.Internal
+  build-depends:
+      base        >=4.14 && <4.18
+    , bytestring  >=0.9  && <0.12
+
+  ghc-options:      -Wall -funbox-strict-fields
+  default-language: Haskell2010
+
+test-suite test
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   tests
+  main-is:          Tests.hs
+  ghc-options:      -Wall -threaded -rtsopts
+  build-depends:
+      base
+    , base64-bytestring
+    , bytestring
+    , HUnit
+    , QuickCheck
+    , test-framework
+    , test-framework-hunit
+    , test-framework-quickcheck2
+
+  default-language: Haskell2010
+
+benchmark benchmarks
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   benchmarks
+  main-is:          BM.hs
+  ghc-options:      -Wall -threaded -rtsopts
+  build-depends:
+      base
+    , base64-bytestring
+    , bytestring
+    , criterion
+    , deepseq >=1.1
+
+  default-language: Haskell2010
+
+source-repository head
+  type:     git
+  location: git://github.com/haskell/base64-bytestring
